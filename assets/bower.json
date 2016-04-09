@@ -1,0 +1,18 @@
+{
+  "name": "assets",
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "authors": [
+    "jeroen"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -1,0 +1,19 @@
+<form action="/session/create" method="POST" class="form-signin">
+	<h2 class="form-signin-heading">Gelieve je aan te melden...</h2>
+
+	<% if(flash && flash.err) { %>
+		<ul class="alert alert-succes">
+			<% Object.keys(flash.err).forEach(function(error){ %>
+			<li><%- JSON.stringify(flash.err[error]) %></li>
+		<% }) %>
+		</ul>
+	<% } %>
+
+	<input type="text" class="form-control" placeholder="Email address" name="email"/>
+	<input type="password" class="form-control" placeholder="Paswoord" name="paswoord"/>
+	<input type="submit" class="btn btn-lg btn-primary btn-block" value="Login"/>
+	<input type="hidden" name="_csrf" value="<%= _csrf %>">
+</form>
+
+
+		

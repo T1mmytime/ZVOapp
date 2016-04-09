@@ -1,0 +1,18 @@
+<Form action="/user/create" method="POST" class="form-signin" id="aanmeldScherm">
+	<h2 class="form-signin-heading">Voeg gebruiker toe</h2>
+
+	<input type="text" class="form-control" placeholder="naam" name="name">
+	
+	<input type="text" class="form-control" placeholder="email adres" name="email">
+
+	<input type="password" class="form-control" placeholder="paswoord" name="paswoord">
+	
+	<input type="password" class="form-control" placeholder="paswoord bevestiging" name="pasBevestiging">
+	<br/>
+
+	<input type="submit" class="btn ntl-lg btn-primary btn-block" value="Create Account"/>
+	<input type='hidden' name='_csrf' value='<%= _csrf %>'>
+
+
+</form>
+	

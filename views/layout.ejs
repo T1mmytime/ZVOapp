@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+ <script src="/js/dependencies/dist/jquery.validate.js"></script>
+ <script src="/js/dependencies/jquery-1.11.1.js"></script>
+  <head>
+    <title><%=typeof title == 'undefined' ? 'New Sails App' : title%></title>
+
+    <!-- Viewport mobile tag for sensible mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+    <!--
+        Stylesheets and Preprocessors
+        ==============================
+
+        You can always bring in CSS files manually with `<link>` tags, or asynchronously
+        using a solution like AMD (RequireJS).  Or, if you like, you can take advantage
+        of Sails' conventional asset pipeline (boilerplate Gruntfile).
+
+        By default, stylesheets from your `assets/styles` folder are included
+        here automatically (between STYLES and STYLES END). Both CSS (.css) and LESS (.less)
+        are supported. In production, your styles will be minified and concatenated into
+        a single file.
+
+        To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
+        For example, here are a few things you could do:
+
+            + Change the order of your CSS files
+            + Import stylesheets from other directories
+            + Use a different or additional preprocessor, like SASS, SCSS or Stylus
+    -->
+
+    <!--STYLES-->
+    <link rel="stylesheet" href="/styles/bootstrap.css">
+    <!--STYLES END-->
+  </head>
+
+  <body>
+
+   <div class="navbar navbar-fixed-top">
+      <div class="container">
+        <div class ="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data.target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"> Home </a>
+       </div>
+
+       <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <% if (session.authenticated){ %>
+                <li class"active"><a href="/user/show/<%= session.User.id %>"><%= session.User.name %></a></li>
+            <% } %>
+            <% if (session.authenticated && session.User.admin){ %>
+                <li><a href="/user">Gebruikers beheer</a></li>
+                <li><a href="#">Placeholder2</a><li>
+            <% } %>
+        </ul>
+       <div class="navbar-right">
+            <% if(session.authenticated) { %>
+                <a class="btn btn-deafault navbar-btn navbar-right" href="/session/logout">logout</a>
+            <%} %>
+        <% if (!session.authenticated) { %>
+            <form class="navbar-form navbar-right" action="/session/create" method="POST">
+                <div class="form-group">
+                    <input type="text" placeholder="email" name"email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="paswoord" name="paswoord" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-success">Login</button>
+                <input type="hidden" name="_csrf" value="<%= _csrf %>">    
+            </form>
+            <% } %>
+            </div> 
+        </div>
+    </div>
+    
+
+
+    <%- body %>
+
+
+
+    <div class="container">
+      <hr>
+      <footer class="footer pull-right"> 
+        <div>
+          <a href="http://sailsjs.com/">sails.js</a>
+          <div>Zwemclub De Valkaart</div>
+        </div>
+      </footer>
+    </div>
+
+    <!--
+        Client-side Templates
+        ========================
+
+        HTML templates are important prerequisites of modern, rich client applications.
+        To work their magic, frameworks like Backbone, Angular, Ember, and Knockout require
+        that you load these templates client-side.
+
+        By default, your Gruntfile is configured to automatically load and precompile
+        client-side JST templates in your `assets/templates` folder, then
+        include them here automatically (between TEMPLATES and TEMPLATES END).
+
+        To customize this behavior to fit your needs, just edit `tasks/pipeline.js`.
+        For example, here are a few things you could do:
+
+            + Import templates from other directories
+            + Use a different template engine (handlebars, jade, dust, etc.)
+            + Internationalize your client-side templates using a server-side
+              stringfile before they're served.
+    -->
+
+    <!--TEMPLATES-->
+    
+    <!--TEMPLATES END-->
+
+
+    <!--
+
+      Client-side Javascript
+      ========================
+
+      You can always bring in JS files manually with `script` tags, or asynchronously
+      on the client using a solution like AMD (RequireJS).  Or, if you like, you can
+      take advantage of Sails' conventional asset pipeline (boilerplate Gruntfile).
+
+      By default, files in your `assets/js` folder are included here
+      automatically (between SCRIPTS and SCRIPTS END).  Both JavaScript (.js) and
+      CoffeeScript (.coffee) are supported. In production, your scripts will be minified
+      and concatenated into a single file.
+
+      To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
+      For example, here are a few things you could do:
+
+          + Change the order of your scripts
+          + Import scripts from other directories
+          + Use a different preprocessor, like TypeScript
+
+    -->
+
+    <!--SCRIPTS-->
+    <script src="/js/dependencies/sails.io.js"></script>
+    <script src="/js/customValidate.js"></script>
+    <script src="/js/dependencies/dist/additional-methods.js"></script>
+    <script src="/js/dependencies/dist/additional-methods.min.js"></script>
+    <script src="/js/dependencies/dist/jquery.validate.js"></script>
+    <script src="/js/dependencies/dist/jquery.validate.min.js"></script>
+    <script src="/js/dependencies/jquery-1.11.1.js"></script>
+    <script src="/js/dependencies/jquery.validate.js"></script>
+    <script src="/js/dependencies/lib/jquery-1.11.1.js"></script>
+    <script src="/js/dependencies/lib/jquery-1.7.2.js"></script>
+    <script src="/js/dependencies/lib/jquery-1.8.3.js"></script>
+    <script src="/js/dependencies/lib/jquery-1.9.1.js"></script>
+    <script src="/js/dependencies/lib/jquery.form.js"></script>
+    <script src="/js/dependencies/lib/jquery.js"></script>
+    <script src="/js/dependencies/lib/jquery.mockjax.js"></script>
+    <script src="/js/dependencies/lib/jquery.simulate.js"></script>
+    <script src="/js/dependencies/lib/require.js"></script>
+    <script src="/js/dependencies/src/additional/accept.js"></script>
+    <script src="/js/dependencies/src/additional/additional.js"></script>
+    <script src="/js/dependencies/src/additional/alphanumeric.js"></script>
+    <script src="/js/dependencies/src/additional/bankaccountNL.js"></script>
+    <script src="/js/dependencies/src/additional/bankorgiroaccountNL.js"></script>
+    <script src="/js/dependencies/src/additional/bic.js"></script>
+    <script src="/js/dependencies/src/additional/cifES.js"></script>
+    <script src="/js/dependencies/src/additional/cpfBR.js"></script>
+    <script src="/js/dependencies/src/additional/creditcard.js"></script>
+    <script src="/js/dependencies/src/additional/creditcardtypes.js"></script>
+    <script src="/js/dependencies/src/additional/currency.js"></script>
+    <script src="/js/dependencies/src/additional/dateFA.js"></script>
+    <script src="/js/dependencies/src/additional/dateITA.js"></script>
+    <script src="/js/dependencies/src/additional/dateNL.js"></script>
+    <script src="/js/dependencies/src/additional/extension.js"></script>
+    <script src="/js/dependencies/src/additional/giroaccountNL.js"></script>
+    <script src="/js/dependencies/src/additional/iban.js"></script>
+    <script src="/js/dependencies/src/additional/integer.js"></script>
+    <script src="/js/dependencies/src/additional/ipv4.js"></script>
+    <script src="/js/dependencies/src/additional/ipv6.js"></script>
+    <script src="/js/dependencies/src/additional/lettersonly.js"></script>
+    <script src="/js/dependencies/src/additional/letterswithbasicpunc.js"></script>
+    <script src="/js/dependencies/src/additional/mobileNL.js"></script>
+    <script src="/js/dependencies/src/additional/mobileUK.js"></script>
+    <script src="/js/dependencies/src/additional/nieES.js"></script>
+    <script src="/js/dependencies/src/additional/nifES.js"></script>
+    <script src="/js/dependencies/src/additional/notEqualTo.js"></script>
+    <script src="/js/dependencies/src/additional/nowhitespace.js"></script>
+    <script src="/js/dependencies/src/additional/pattern.js"></script>
+    <script src="/js/dependencies/src/additional/phoneNL.js"></script>
+    <script src="/js/dependencies/src/additional/phoneUK.js"></script>
+    <script src="/js/dependencies/src/additional/phoneUS.js"></script>
+    <script src="/js/dependencies/src/additional/phonesUK.js"></script>
+    <script src="/js/dependencies/src/additional/postalCodeCA.js"></script>
+    <script src="/js/dependencies/src/additional/postalcodeBR.js"></script>
+    <script src="/js/dependencies/src/additional/postalcodeIT.js"></script>
+    <script src="/js/dependencies/src/additional/postalcodeNL.js"></script>
+    <script src="/js/dependencies/src/additional/postcodeUK.js"></script>
+    <script src="/js/dependencies/src/additional/require_from_group.js"></script>
+    <script src="/js/dependencies/src/additional/skip_or_fill_minimum.js"></script>
+    <script src="/js/dependencies/src/additional/statesUS.js"></script>
+    <script src="/js/dependencies/src/additional/strippedminlength.js"></script>
+    <script src="/js/dependencies/src/additional/time.js"></script>
+    <script src="/js/dependencies/src/additional/time12h.js"></script>
+    <script src="/js/dependencies/src/additional/url2.js"></script>
+    <script src="/js/dependencies/src/additional/vinUS.js"></script>
+    <script src="/js/dependencies/src/additional/zipcodeUS.js"></script>
+    <script src="/js/dependencies/src/additional/ziprange.js"></script>
+    <script src="/js/dependencies/src/ajax.js"></script>
+    <script src="/js/dependencies/src/core.js"></script>
+    <script src="/js/angular-sails.io.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/controllers/restCtrl.js"></script>
+    <script src="/js/controllers/sailsSocketCtrl.js"></script>
+    <script src="/js/controllers/todoCtrl.js"></script>
+    <script src="/js/services/sailsSocket.js"></script>
+    <!--SCRIPTS END-->
+  </body>
+</html>
