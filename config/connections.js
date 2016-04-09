@@ -42,11 +42,20 @@ module.exports.connections = {
   ***************************************************************************/
   localMysql: {
     adapter: 'sails-mysql',
-    host: 'localhost',
+    host: 'CLEARDB_DATABASE_URL',
     port: 3306,
     user: 'root',
     password: 'root',
     database: 'zvo_users'
+  },
+
+  jawsMysql: {
+    adapter: 'sails-mysql',
+    host: 'ivgz2rnl5rh7sphb.chr7pe7iynqr.eu-west-1.rds.amazonaws.com',
+    port: 3306,
+    user: 's4tpq216hl61h3l4',
+    password: 're2yu6g4dl3hmn9c ',
+    database: 'lom7pay7trva4jg8'
   },
 
   /***************************************************************************
