@@ -34,8 +34,13 @@ module.exports.routes = {
 
   '/': {
     view: 'static/index'
-  }
+  },
 
+  //Oefeningen 
+  'POST /addOefening': 'OefeningController.addOefening',
+  'GET /getOefening': 'OefeningController.getOefening',
+  'GET /getAlleOefeningen': 'OefeningController.getAlleOefeningen',
+  'PUT /weizigOefening': 'OefeningController.weizigOefening'
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

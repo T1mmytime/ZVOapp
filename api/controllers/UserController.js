@@ -49,7 +49,7 @@ module.exports = {
 			//res.json(user);
 			//req.session.flash = {};
 			//stuur gebruiker naar profiel pagina
-			res.redirect('/user/show/'+user.id);
+			res.redirect('/user/show/'+ user.id);
 			});
 		});
 	},
