@@ -32,9 +32,7 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-    view: 'static/index'
-  },
+  'GET /': {view: 'static/index'},
 
   //Oefeningen 
   'POST /addOefening': 'OefeningController.addOefening',
