@@ -36,6 +36,7 @@ module.exports.routes = {
 
   //Oefeningen 
   'POST /addOefening': 'OefeningController.addOefening',
+  'GET /oefening/test': 'OefeningController.test',
   'GET /getOefening': 'OefeningController.getOefening',
   'GET /getAlleOefeningen': 'OefeningController.getAlleOefeningen',
   'PUT /weizigOefening': 'OefeningController.weizigOefening'

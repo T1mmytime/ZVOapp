@@ -52,7 +52,7 @@ module.exports = {
 		});
   	},
 
-  	weizigOefening: function(req, res){
+  weizigOefening: function(req, res){
   		Oefening.update({
   			name: req.param('naam')
   		},
@@ -64,6 +64,11 @@ module.exports = {
   			if (err) return res.serverError(err);
   			return res.json(oefening);
   		});
-  	}
+  },
+
+  test: function(req, res){
+
+    return res.send('Connectie met OefeningController succesvol');
+  }
 };
 
