@@ -1,5 +1,5 @@
 /**
- * Oefening.js
+ * Examen.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
@@ -9,30 +9,29 @@ module.exports = {
 
   attributes: {
 
-    // naam van de oefening
-    naam: {
-      type: 'string',
-      required: true,
-      unique: true
+  
+
+    beschrijving: {
+    	type: 'string'
     },
 
     // Bexchrijving van de oefening
-    beschrijving: {
-      type: 'string',
-      required: true
+    oefeningen: {
+    	collection: 'oefening',
+    	via: 'examens',
+    	dominant: true
     },
 
-    examens: {
-      collection: 'examen',
-      via: 'oefeningen'
+    deelnemers: {
+    	collection: 'user',
+    	via: 'examens',
+    	dominant: true
     },
 
-    schemas:{
-      collection: 'schema',
-      via: 'oefeningen'
+    rapporten: {
+      collection: 'rapport',
+      via: 'examen'
     }
-
   }
 };
-
 

@@ -35,6 +35,24 @@ module.exports = {
   		type: 'string'
   	},
 
+    rapporten: {
+      collection: 'rapport',
+      via: 'zwemmer'
+    },
+
+    examens: {
+      collection: 'examen',
+      via: 'deelnemers'
+    },
+
+    aanwezigheidslijsten: {
+        collection: 'aanwezigheid',
+        via: 'aanwezigen'
+    },
+
+
+
+
     //om er voor te zorgen dat niet alles terug gegeven wordt aan de client
   	toJSON: function(){
   		var obj = this.toObject();

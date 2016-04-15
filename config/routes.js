@@ -39,7 +39,17 @@ module.exports.routes = {
   'GET /oefening/test': 'OefeningController.test',
   'GET /getOefening': 'OefeningController.getOefening',
   'GET /getAlleOefeningen': 'OefeningController.getAlleOefeningen',
-  'PUT /weizigOefening': 'OefeningController.weizigOefening'
+  'PUT /weizigOefening': 'OefeningController.weizigOefening',
+  
+  //Rapporten
+  'POST /addRapport': 'RapportController.addRapport',
+  'GET /getRapport': 'RapportController.getRapport',
+  'GET /getAlleRapporten': 'RapportController.getAlleRapporten'
+
+
+
+
+
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
