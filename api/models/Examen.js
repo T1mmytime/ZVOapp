@@ -7,7 +7,7 @@
 
 module.exports = {
 
-  attributes: {
+ attributes: {
 
   
 
@@ -32,6 +32,6 @@ module.exports = {
       collection: 'rapport',
       via: 'examen'
     }
-  }
+  } 
 };
 

@@ -9,6 +9,36 @@ module.exports = {
 
   attributes: {
 
-  }
+  		tijdstip: {
+  			type: 'datetime',
+  			required: true 
+  		},
+
+  		schema: {
+      		model: 'trainingsschema'
+    	},
+
+    	eindtijd: {
+    		type: 'datetime',
+    		required: true
+    	},
+
+    	groep: {
+    		model: 'groep'
+    	},
+
+    	trainer: {
+    		model: 'user',
+    		required: true
+    	},
+
+    	redder: {
+    		model: 'user',
+    		required: true
+    	}
+
+    	
+
+    }
 };
 

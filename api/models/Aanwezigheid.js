@@ -7,12 +7,17 @@
 
 module.exports = {
 
-  attributes: {
+    attributes: {
 
   		aanwezigen: {
         	collection: 'user',
         	via: 'aanwezigheidslijsten',
         	dominant: true
+    	},
+
+    	status: {
+    		required: true,
+    		defaultsTo: false
     	}
   	}
 };

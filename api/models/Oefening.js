@@ -28,11 +28,11 @@ module.exports = {
     },
 
     schemas:{
-      collection: 'schema',
+      collection: 'trainingsschema',
       via: 'oefeningen'
     }
-
-  }
+  
+  } 
 };
 
 

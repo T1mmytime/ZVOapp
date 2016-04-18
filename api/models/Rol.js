@@ -9,6 +9,22 @@ module.exports = {
 
   attributes: {
 
+  	naam: {
+  		type: 'string',
+  		required: true,
+  		unique: true
+  	},
+
+  	beschrijving: {
+  		type: 'string'
+  	},
+
+  	gebruikers: {
+  		collection: 'user',
+  		via: 'rollen',
+  		dominant: true
+  	}
+
   }
 };
 

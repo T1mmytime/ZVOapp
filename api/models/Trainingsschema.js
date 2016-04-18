@@ -7,7 +7,7 @@
 
 module.exports = {
 
-  attributes: {
+ attributes: {
 
   	naam: {
   		type: 'string',
@@ -18,7 +18,13 @@ module.exports = {
       	collection: 'oefening',
       	via: 'schemas',
       	dominant: true
+    },
+
+    agendaMoment: {
+      collection: 'agenda',
+      via: 'schema'
     }
+
   }
 };
 

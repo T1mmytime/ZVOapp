@@ -46,23 +46,23 @@ module.exports = {
     },
 
     aanwezigheidslijsten: {
-        collection: 'aanwezigheid',
-        via: 'aanwezigen'
+      collection: 'aanwezigheid',
+      via: 'aanwezigen'
     },
 
+    //groepen tot waar het lid behoord 
+    groepen: {
+      collection: 'groep',
+      via: 'deelnemers'
+    },
 
-
+    rollen: {
+      collection: 'rol',
+      via: 'gebruikers'
+    },
 
     //om er voor te zorgen dat niet alles terug gegeven wordt aan de client
-  	toJSON: function(){
-  		var obj = this.toObject();
-  		delete obj.paswoord;
-  		delete obj.pasBevestiging;
-      delete obj.gencrypteerdPaswoord;
-  		delete obj._csrf;
-  		return obj;
-  	}
-  },
+
 
   beforeValidation: function(values, next){
    // console.log(values)
@@ -87,6 +87,65 @@ module.exports = {
       //values.online = true;
       next();
     });
+  },
+
+  /*isTrainer: function(gebruiker, cb){
+        User.findone(gebruiker.id).exec(function( err, deGebruiker){
+          if (err) return cb(err);
+          if (!deGebruiker) return cb(new Error('gebruiker niet gevonden'));
+          if (gebruiker.rollen.naam != 'trainer') return cb( new Error('gebruiker is geen trainer'));
+          return true;
+        })
+  },*/
+  isTrainer: function(){
+     var i =0;
+     for (; i < this.rollen.length; i++) {
+          if (this.rollen[i].naam === 'trainer') {
+              return true;
+          }
+      }
+      return false;
+  }, 
+  /*isTrainer: function(){
+          this.rollen.findOne(naam:'trainer').exec(function(err){
+              if (err) return err;
+              return true;
+      })
+  },*/
+  getRollen: function(){
+      return this.rollen;
+  },
+
+  isRedder: function(){
+     var i =0;
+     for (; i < this.rollen.length; i++) {
+          if (this.rollen[i].naam === 'redder') {
+              return true;
+          }
+      }
+      return false;
+  },
+
+  isAdmin: function(){
+     var i =0;
+     for (; i < this.rollen.length; i++) {
+          if (this.rollen[i].naam === 'admin') {
+              return true;
+          }
+      }
+      return false;
+  },
+
+  toJSON: function(){
+      var obj = this.toObject();
+
+      delete obj.paswoord;
+      delete obj.pasBevestiging;
+      delete obj.gencrypteerdPaswoord;
+      delete obj._csrf;
+      return obj;
+    }
   }
+
 };
 

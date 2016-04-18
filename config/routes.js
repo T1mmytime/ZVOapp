@@ -44,11 +44,12 @@ module.exports.routes = {
   //Rapporten
   'POST /addRapport': 'RapportController.addRapport',
   'GET /getRapport': 'RapportController.getRapport',
-  'GET /getAlleRapporten': 'RapportController.getAlleRapporten'
+  'GET /getAlleRapporten': 'RapportController.getAlleRapporten',
 
+   //Agenda
 
-
-
+   'POST /agenda/add': 'AgendaController.addplanning',
+   'GET /agenda/getIcal': 'AgendaController.getGroepIcal',
 
   /***************************************************************************
   *                                                                          *
