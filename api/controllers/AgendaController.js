@@ -31,30 +31,30 @@ module.exports = {
 			groep: req.param('groepID')
 		}
 		
-
-		Agenda.create(agendaOBJ, function userCreated(err, planning){
-			// in geval van een error
-			if(err) return res.negotiate(err);
-
-			User.findOne({id: req.param('redderID')})
+		User.findOne({id: req.param('redderID')})
 			.populate('rollen')
 			.exec(function(err,gebruiker){
 				if(err)	return res.negotiate(err);
-				if(!gebruiker) return res.send('Geen gebruiker gevonden');
-				if(!gebruiker.isRedder()) return res.send('De opgegeven redder is geen redder');
-			})
-			User.findOne({id: req.param('trainerID')})
-				.populate('rollen')
-				.exec(function(err,gebruiker){
-				if(err)	return res.negotiate(err);
-				if(!gebruiker) return res.send('Geen gebruiker gevonden');
-				if(!gebruiker.isTrainer()) return res.send('De opgegeven trainer is geen trainer');
-			})
+				if(!gebruiker) return res.json(401, {err:'Geen gebruiker gevonden'});
+				if(!gebruiker.isRedder()) return res.json(401, {err:'De opgegeven redder is geen redder'});
+				
+				else User.findOne({id: req.param('trainerID')})
+					.populate('rollen')
+					.exec(function(err,gebruiker){
+					if(err)	return res.negotiate(err);
+					if(!gebruiker) return res.json(401, {err:'Geen gebruiker gevonden'});
+					if(!gebruiker.isTrainer()) return res.json(401, {err:'De opgegeven trainer is geen trainer'});
+				
 			
-			planning.save(function(err, planning){
-				if(err) return next(err);
-					res.json(planning);
-			})
+					else Agenda.create(agendaOBJ, function userCreated(err, planning){
+			
+						if(err) return res.negotiate(err);
+						planning.save(function(err, planning){
+							if(err) return next(err);
+							return	res.json(planning);
+					});
+				});
+			});
 		});		
 	},
 
@@ -63,7 +63,7 @@ module.exports = {
 			.populate('agendaPunt')
 			.exec(function groepGevonden(err,groep){
 			if(err) return res.negotiate(err);
-			if(!groep) return res.send('groep niet gevonden');
+			if(!groep) return res.json(401, {err:'groep niet gevonden'});
 			res.json(groep.getAgendaPunten());
 			})
 	}

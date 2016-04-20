@@ -35,10 +35,12 @@ module.exports = {
     	redder: {
     		model: 'user',
     		required: true
-    	}
+    	},
 
-    	
-
+      aanwezigheidslijst: {
+        model: 'aanwezigheid',
+        required: true
+      }
     }
 };
 

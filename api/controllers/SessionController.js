@@ -7,7 +7,7 @@
 
 module.exports = {
 
-	'new': function(req, res){
+/*	'new': function(req, res){
 
 	//levensduur van sessie
 		//var oldDateObj = new Date();
@@ -93,5 +93,6 @@ module.exports = {
 		});
 	});
   }
+  */
 };
 

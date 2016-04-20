@@ -5,6 +5,8 @@
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
+var bcrypt = require('bcryptjs');
+
 module.exports = {
 
  schema:true,
@@ -61,10 +63,14 @@ module.exports = {
       via: 'gebruikers'
     },
 
+    password:{
+      type: 'string',
+      required: true
+    },
     //om er voor te zorgen dat niet alles terug gegeven wordt aan de client
 
 
-  beforeValidation: function(values, next){
+ /* beforeValidation: function(values, next){
    // console.log(values)
     if(typeof values.admin !=='undefined'){
       if(values.admin == 'unchecked'){
@@ -75,8 +81,11 @@ module.exports = {
     }
     next();
   },
-
-  beforeCreate: function (values, next){
+*/
+  isPasswordValid: function (password, cb) {
+      bcrypt.compare(password, this.password, cb);
+  },
+ /* beforeCreate: function (values, next){
     if(!values.paswoord || values.paswoord != values.pasBevestiging){
       return next({err: ["Paswoord is niet gelijk aan het bevestigings paswoord " + values.paswoord + " " + values.pasBevestiging] });
     }
@@ -87,16 +96,8 @@ module.exports = {
       //values.online = true;
       next();
     });
-  },
-
-  /*isTrainer: function(gebruiker, cb){
-        User.findone(gebruiker.id).exec(function( err, deGebruiker){
-          if (err) return cb(err);
-          if (!deGebruiker) return cb(new Error('gebruiker niet gevonden'));
-          if (gebruiker.rollen.naam != 'trainer') return cb( new Error('gebruiker is geen trainer'));
-          return true;
-        })
   },*/
+
   isTrainer: function(){
      var i =0;
      for (; i < this.rollen.length; i++) {
@@ -106,12 +107,7 @@ module.exports = {
       }
       return false;
   }, 
-  /*isTrainer: function(){
-          this.rollen.findOne(naam:'trainer').exec(function(err){
-              if (err) return err;
-              return true;
-      })
-  },*/
+
   getRollen: function(){
       return this.rollen;
   },
@@ -136,10 +132,12 @@ module.exports = {
       return false;
   },
 
+  
   toJSON: function(){
       var obj = this.toObject();
 
       delete obj.paswoord;
+      delete obj.password;
       delete obj.pasBevestiging;
       delete obj.gencrypteerdPaswoord;
       delete obj._csrf;

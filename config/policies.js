@@ -35,7 +35,10 @@ module.exports.policies = {
     edit: 'standardUser',
     update: 'standardUser',
     '*': 'admin'
+  },
 
+  AgendaController:{
+    getGroepIcal: 'authToken'
   }
 
   /***************************************************************************

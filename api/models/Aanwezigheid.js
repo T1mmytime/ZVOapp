@@ -18,7 +18,13 @@ module.exports = {
     	status: {
     		required: true,
     		defaultsTo: false
-    	}
+    	},
+
+        planning: {
+            collection: 'Agenda',
+            via: 'aanwezigheidslijst'
+        }
+
   	}
 };
 

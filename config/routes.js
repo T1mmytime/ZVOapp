@@ -51,6 +51,11 @@ module.exports.routes = {
    'POST /agenda/add': 'AgendaController.addplanning',
    'GET /agenda/getIcal': 'AgendaController.getGroepIcal',
 
+   //Authenticatie
+  'POST /login' : 'AuthController.login',
+  'POST /signup' : 'AuthController.signup',
+  //'GET /activate/:token' : 'AuthController.activate',
+
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
