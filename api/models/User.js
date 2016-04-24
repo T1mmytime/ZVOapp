@@ -63,6 +63,13 @@ module.exports = {
       via: 'gebruikers'
     },
 
+    userStatus: {
+      collection: 'aanwezigheid',
+      via: 'status',
+      required: true,
+      defaultsTo: false
+    },
+
     password:{
       type: 'string',
       required: true
@@ -132,7 +139,7 @@ module.exports = {
       return false;
   },
 
-  
+
   toJSON: function(){
       var obj = this.toObject();
 

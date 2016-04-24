@@ -15,7 +15,10 @@ module.exports = {
         	dominant: true
     	},
 
-    	status: {
+        status: {
+            collection: 'user',
+            via: 'userStatus',
+            dominant:true,
     		required: true,
     		defaultsTo: false
     	},
@@ -23,8 +26,17 @@ module.exports = {
         planning: {
             collection: 'Agenda',
             via: 'aanwezigheidslijst'
-        }
+        },
 
-  	}
+        createLijst: function(options,cb){
+
+            var groep = options.groep;
+                 Groep.findOne(groep.id)  
+                 .exec(function(err, grp){
+                    if(err) return cb(err);
+                    cb(null,grp);
+            });
+        }
+    }
 };
 

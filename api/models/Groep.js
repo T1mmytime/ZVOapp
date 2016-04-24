@@ -35,6 +35,10 @@ module.exports = {
 
     getAgendaPunten: function(){
     	return this.agendaPunt;
+    },
+
+    getDeelnemers: function(){
+        return this.deelnemers;
     }
   }
 };

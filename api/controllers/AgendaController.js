@@ -5,6 +5,8 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+var _ = require('lodash');
+
 module.exports = {
 	
 
@@ -20,7 +22,7 @@ module.exports = {
   	//	redderID -> gebruikersID van de redder
   	//	groepID -> ID van de groep waaraan les gegeven moet worden
   	addPlanning: function(req, res){
-  		var _ = require('lodash');
+  	
   		var train, red;
 
 		var agendaOBJ={
@@ -61,12 +63,40 @@ module.exports = {
 	getGroepIcal: function(req, res){
 		Groep.findOne({id: req.param('groepID')})
 			.populate('agendaPunt')
+			//.populate('deelnemers')
 			.exec(function groepGevonden(err,groep){
 			if(err) return res.negotiate(err);
 			if(!groep) return res.json(401, {err:'groep niet gevonden'});
-			res.json(groep.getAgendaPunten());
-			})
-	}
+			res.json(groep.agendaPunt);
+				
+	 	});
+	},
 
+	getGroepDeelnemers: function(req, res){
+		Groep.findOne({id: req.param('groepID')})
+			.populateAll()
+			.exec(function geefGroep(err, groep){
+				if(err) return res.negotiate(err);
+				if(!groep) return res.json(401, {err:'groep niet gevonden'});
+				var gebruikers = [];
+				groep.deelnemers.forEach(function(gebruiker){
+					gebruikers.push(_.pick(gebruiker, ['id']));
+				})
+
+				var aanwezigheidslijstOBJ = {
+					planning: 1,
+					aanwezigen: gebruikers
+				}
+				Aanwezigheid.create(aanwezigheidslijstOBJ, function agendaCreated(err, lijst){
+			
+						if(err) return res.negotiate(err);
+						lijst.save(function(err, lijst){
+							if(err) return next(err);
+							return	res.json(lijst);
+						});
+				
+				});
+			})
+	}	
 };
 

@@ -50,6 +50,7 @@ module.exports.routes = {
 
    'POST /agenda/add': 'AgendaController.addplanning',
    'GET /agenda/getIcal': 'AgendaController.getGroepIcal',
+   'GET /agenda/deelnemers': 'AgendaController.getGroepDeelnemers',
 
    //Authenticatie
   'POST /login' : 'AuthController.login',
