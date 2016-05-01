@@ -22,15 +22,16 @@ module.exports = {
       required: true
     },
 
-    examens: {
+    examenID: {
       collection: 'examen',
-      via: 'oefeningen'
+      via: 'oefeningID'
     },
 
-    schemas:{
-      collection: 'trainingsschema',
-      via: 'oefeningen'
-    }
+    gebruiktIn: {
+      collection: 'gebruikteoefeningen',
+      via: 'gebruikteoefeningID'
+    },
+ 
   
   } 
 };

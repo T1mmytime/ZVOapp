@@ -14,15 +14,14 @@ module.exports = {
   		required: true
   	},
 
-  	oefeningen: {
-      	collection: 'oefening',
-      	via: 'schemas',
-      	dominant: true
+  	gebruikteoefening: {
+      	collection: 'Gebruikteoefeningen',
+        via: 'schemaID'
     },
 
     agendaMoment: {
       collection: 'agenda',
-      via: 'schema'
+      via: 'schemaID'
     }
 
   }

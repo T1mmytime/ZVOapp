@@ -11,31 +11,27 @@ module.exports = {
 
   		aanwezigen: {
         	collection: 'user',
-        	via: 'aanwezigheidslijsten',
-        	dominant: true
+        	via: 'aanwezigheidslijst',
+            dominant: true
+         //   through: 'useraanwezigheid'
     	},
 
-        status: {
+/*status: {
             collection: 'user',
             via: 'userStatus',
             dominant:true,
     		required: true,
     		defaultsTo: false
-    	},
+    	},*/
 
         planning: {
-            collection: 'Agenda',
-            via: 'aanwezigheidslijst'
+            model: 'agenda',
+            required: true
         },
 
-        createLijst: function(options,cb){
-
-            var groep = options.groep;
-                 Groep.findOne(groep.id)  
-                 .exec(function(err, grp){
-                    if(err) return cb(err);
-                    cb(null,grp);
-            });
+        statusen: {
+            collection: 'aanwezigheidsstatus',
+            via: 'aanwezigheidID'
         }
     }
 };

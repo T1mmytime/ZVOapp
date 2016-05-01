@@ -9,29 +9,36 @@ module.exports = {
 
  attributes: {
 
-  
+    //Eigenlijk overbodig
+    //Een examen is eigenlijk het zelfde als een training
+    //Wordt ingepland en aan een groep gegeven
+    //Examen controller moet gebruikt worden om een training en schema te gebruiken
+    //De controller moet dan met dit schema een rapport opstellen
+    //De trainer moet dan dit rapport invullen
 
     beschrijving: {
     	type: 'string'
     },
 
     // Bexchrijving van de oefening
-    oefeningen: {
+    oefeningID: {
     	collection: 'oefening',
-    	via: 'examens',
+    	via: 'examenID',
     	dominant: true
     },
 
-    deelnemers: {
+
+
+    gebruikerID: {
     	collection: 'user',
-    	via: 'examens',
+    	via: 'examenID',
     	dominant: true
-    },
-
-    rapporten: {
-      collection: 'rapport',
-      via: 'examen'
     }
+
+ /*   rapporten: {
+      collection: 'rapport',
+      via: 'examenID'
+    }*/
   } 
 };
 

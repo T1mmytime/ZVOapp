@@ -34,14 +34,14 @@ module.exports = {
 		}
 		
 		User.findOne({id: req.param('redderID')})
-			.populate('rollen')
+			.populate('rolID')
 			.exec(function(err,gebruiker){
 				if(err)	return res.negotiate(err);
 				if(!gebruiker) return res.json(401, {err:'Geen gebruiker gevonden'});
 				if(!gebruiker.isRedder()) return res.json(401, {err:'De opgegeven redder is geen redder'});
 				
 				else User.findOne({id: req.param('trainerID')})
-					.populate('rollen')
+					.populate('rolID')
 					.exec(function(err,gebruiker){
 					if(err)	return res.negotiate(err);
 					if(!gebruiker) return res.json(401, {err:'Geen gebruiker gevonden'});
@@ -53,13 +53,54 @@ module.exports = {
 						if(err) return res.negotiate(err);
 						planning.save(function(err, planning){
 							if(err) return next(err);
-							return	res.json(planning);
+							//return	res.json(planning);
+							Groep.findOne({id: req.param('groepID')})
+							.populateAll()
+							.exec(function geefGroep(err, groep){
+								if(err) return res.negotiate(err);
+								if(!groep) return res.json(401, {err:'groep niet gevonden'});
+								var gebruikers = [];
+								groep.deelnemers.forEach(function(gebruiker){
+									gebruikers.push(_.get(gebruiker, ['id']));
+								})
+
+								var aanwezigheidslijstOBJ = {
+									planning: '1',
+									aanwezigen: gebruikers
+								}
+								Aanwezigheid.create(aanwezigheidslijstOBJ, function Created(err, lijst){
+							
+										if(err) return res.negotiate(err);
+										lijst.save(function(err, lst){
+											if(err) return next(err);
+										});
+										
+								});
+
+								async.each(gebruikers, function( gebruiker, klaar){
+									var statusOBJ= {
+											 	aanwezigheidID: '1',
+											    gebruikerID: gebruiker
+											}
+									Aanwezigheidsstatus.create(statusOBJ, function Created(err, status){
+													status.save(function(err,sts){
+													if(err) return next(err);
+													//res.json(statusOBJ);										
+													});
+										klaar(err,status);
+									});
+
+								},function(err){
+									res.send('succes');
+								});
+							});
 					});
 				});
 			});
 		});		
 	},
 
+	//Geeft de ingeplanda datums terug van een groep
 	getGroepIcal: function(req, res){
 		Groep.findOne({id: req.param('groepID')})
 			.populate('agendaPunt')
@@ -72,31 +113,49 @@ module.exports = {
 	 	});
 	},
 
+	//test methode wordt nadien functionaliteit in "addplanning"
 	getGroepDeelnemers: function(req, res){
-		Groep.findOne({id: req.param('groepID')})
+		/*Groep.findOne({id: req.param('groepID')})
 			.populateAll()
 			.exec(function geefGroep(err, groep){
 				if(err) return res.negotiate(err);
 				if(!groep) return res.json(401, {err:'groep niet gevonden'});
 				var gebruikers = [];
 				groep.deelnemers.forEach(function(gebruiker){
-					gebruikers.push(_.pick(gebruiker, ['id']));
+					gebruikers.push(_.get(gebruiker, ['id']));
 				})
 
 				var aanwezigheidslijstOBJ = {
-					planning: 1,
+					planning: '1',
 					aanwezigen: gebruikers
 				}
-				Aanwezigheid.create(aanwezigheidslijstOBJ, function agendaCreated(err, lijst){
+				Aanwezigheid.create(aanwezigheidslijstOBJ, function Created(err, lijst){
 			
 						if(err) return res.negotiate(err);
-						lijst.save(function(err, lijst){
+						lijst.save(function(err, lst){
 							if(err) return next(err);
-							return	res.json(lijst);
 						});
-				
+						
 				});
-			})
+
+				async.each(gebruikers, function( gebruiker, klaar){
+					var statusOBJ= {
+							 	aanwezigheidID: '1',
+							    gebruikerID: gebruiker
+							}
+					Aanwezigheidsstatus.create(statusOBJ, function Created(err, status){
+									status.save(function(err,sts){
+									if(err) return next(err);
+									//res.json(statusOBJ);										
+									});
+						klaar(err,status);
+					});
+
+				},function(err){
+					res.send('succes');
+				});
+			});*/
+			Agenda.createAanwezigheidslijst();
 	}	
 };
 

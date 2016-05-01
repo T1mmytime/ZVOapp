@@ -9,12 +9,16 @@ module.exports = {
 
   attributes: { 
 
-    zwemmer: {
+  	trainerID:{
+  		model: 'user'
+  	},
+
+    zwemmerID: {
       	model: 'user'
     },
 
-    examen: {
-    	model: 'examen'
+    planningID: {
+    	model: 'agenda'
     }
   }
 };

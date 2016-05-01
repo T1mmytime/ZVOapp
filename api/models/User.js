@@ -37,20 +37,33 @@ module.exports = {
   		type: 'string'
   	},
 
-    rapporten: {
+    rapportVan: {
       collection: 'rapport',
-      via: 'zwemmer'
+      via: 'zwemmerID'
     },
 
-    examens: {
+    rapportOpgemaakt: {
+      collection: 'rapport',
+      via: 'trainerID'
+    },
+
+    examenID: {
       collection: 'examen',
-      via: 'deelnemers'
+      via: 'gebruikerID'
     },
 
-    aanwezigheidslijsten: {
+    aanwezigheidslijst: {
       collection: 'aanwezigheid',
       via: 'aanwezigen'
+    //  through: 'useraanwezigheid'
     },
+
+   /* userStatus: {
+      collection: 'aanwezigheid',
+      via: 'status',
+      required: true,
+      defaultsTo: false
+    },*/
 
     //groepen tot waar het lid behoord 
     groepen: {
@@ -58,21 +71,19 @@ module.exports = {
       via: 'deelnemers'
     },
 
-    rollen: {
+    rolID: {
       collection: 'rol',
-      via: 'gebruikers'
-    },
-
-    userStatus: {
-      collection: 'aanwezigheid',
-      via: 'status',
-      required: true,
-      defaultsTo: false
+      via: 'gebruikerID'
     },
 
     password:{
       type: 'string',
       required: true
+    },
+
+    statussen:{
+      collection: 'aanwezigheidsstatus',
+      via: 'gebruikerID'
     },
     //om er voor te zorgen dat niet alles terug gegeven wordt aan de client
 
@@ -107,8 +118,8 @@ module.exports = {
 
   isTrainer: function(){
      var i =0;
-     for (; i < this.rollen.length; i++) {
-          if (this.rollen[i].naam === 'trainer') {
+     for (; i < this.rolID.length; i++) {
+          if (this.rolID[i].naam === 'trainer') {
               return true;
           }
       }
@@ -116,13 +127,13 @@ module.exports = {
   }, 
 
   getRollen: function(){
-      return this.rollen;
+      return this.rolID;
   },
 
   isRedder: function(){
      var i =0;
-     for (; i < this.rollen.length; i++) {
-          if (this.rollen[i].naam === 'redder') {
+     for (; i < this.rolID.length; i++) {
+          if (this.rolID[i].naam === 'redder') {
               return true;
           }
       }
@@ -131,8 +142,18 @@ module.exports = {
 
   isAdmin: function(){
      var i =0;
-     for (; i < this.rollen.length; i++) {
-          if (this.rollen[i].naam === 'admin') {
+     for (; i < this.rolID.length; i++) {
+          if (this.rolID[i].naam === 'admin') {
+              return true;
+          }
+      }
+      return false;
+  },
+
+  isZwemmer: function(){
+     var i =0;
+     for (; i < this.rolID.length; i++) {
+          if (this.rolID[i].naam === 'zemmer') {
               return true;
           }
       }

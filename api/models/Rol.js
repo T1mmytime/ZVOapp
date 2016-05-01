@@ -19,9 +19,9 @@ module.exports = {
   		type: 'string'
   	},
 
-  	gebruikers: {
+  	gebruikerID: {
   		collection: 'user',
-  		via: 'rollen',
+  		via: 'rolID',
   		dominant: true
   	}
 
