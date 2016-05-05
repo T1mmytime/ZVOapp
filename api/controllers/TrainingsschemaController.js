@@ -11,26 +11,48 @@ module.exports = {
 
 	addTrainingSchema: function(req, res){
 		
-	    var oefeningenJson = {
-		 	oefening: [,2,3,4,5],
-			herhalingen: [2,2,2,2,2]
+
+		var schemaOBJ = {
+			naam: req.param('naam'),
+			beschrijving: req.param('beschrijving'),
+			auteur: req.param('auteur')
 		}
-
-		Trainingsschema.create({
+		Trainingsschema.create(schemaOBJ, function Created(err, schema){
 	
-			naam: 'testSchema',
-			oefeningen: oefeningenJson,
-			agendaMoment: '1'
-			},
-			function voegSchemaToe(err, schema){
-              
-              if(err){
-              	//console.log(err);
-              	return res.negotiate(err);
-              }
+				if(err) return res.negotiate(err);
+				schema.save(function(err, sch){
+					if(err) return next(err);
+				});
+				
+		
 
-              res.json(schema);
-        });        
+			var oefeningenOBJ = req.body;//{
+				/*oefeningen: req.body(oefeningen.oef),
+				volgorde: req.body(oefeningen.volgorde),
+				duur: req.body(oefeningen.duur)
+			}*/
+
+			async.each(oefeningenOBJ, function( oefening, klaar){
+				
+				var schemaOefOBJ = {
+					schemaID: schema.id,
+					oefeningID: oefening.id,
+					tijdsduur:  oefening.duur,
+					volgorde: oefening.volgorde 
+				}
+
+				SchemaOefeningen.create(schemaOefOBJ, function Created(err, schoef){
+									schoef.save(function(err,shf){
+									if(err) return next(err);
+									//res.json(statusOBJ);										
+									});
+						klaar(err,schoef);
+					});
+
+				},function(err){
+					res.send('succes');
+				});  
+		});  
 	},
 
 	getTrainingSchema: function(req,res){
@@ -40,29 +62,11 @@ module.exports = {
 			.exec(function schemaGevonden(err,schema){
 			if(err) return res.negotiate(err);
 			if(!schema) return res.json(401, {err:'schema niet gevonden'});
-			var schemaOefeningen = [],
+		/*	var schemaOefeningen = [],
 				oefeningenOBJ = [];
 			schemaOefeningen = _.get(schema.oefeningen,['oefening']);
 		   	
-		  //  schemaOefeningen.forEach(function(oef){
-			/*for ( var i = 0 ; i < schemaOefeningen.length ; i ++){
-					var test;
-					Oefening.findOne({id: schemaOefeningen[i]})
-					.exec(function(err, oefn){
-						if(err) return res.negotiate(err);
-						if(!oefn) test = 'niets';
-						test = 'succes';
-					})
-					oefeningenOBJ.push(1);
-		    	//	oefeningenOBJ.push(oef);
-			};*/
-	/*		async.map(schemaOefeningen, function teller(oef, mapCB){
-	
-				Oefening.find(id: oef).exec(function(err,oefn){
-					if(err) return mapCB(err);
-					oefeningenOBJ.push(oefn);
-				});
-			});*/
+		 
 			async.each(schemaOefeningen,function(oefening, cb){
 				Oefening.findOne({id:oefening}).exec(function(err,oefn){
 					if(err) cb(err);
@@ -72,26 +76,13 @@ module.exports = {
 				});
 			}, function(err){
 
-			
 			      	var trainingsschemaOBJ ={
 					agendaMoment: schema.agendaMoment,
 					naam: schema.naam,
 					oefeningen: oefeningenOBJ
-					}
-
-					res.json(oefeningenOBJ);
-				   
-
-			});
-				
-			
-
-			
-			
-
-			
-				
-	 	});
+					}*/
+					res.json(schema); 
+			});				
 	}
 };
 

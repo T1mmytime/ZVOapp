@@ -87,6 +87,10 @@ module.exports = {
     },
     //om er voor te zorgen dat niet alles terug gegeven wordt aan de client
 
+    gemaakteSchemas:{
+      collection: 'trainingsschema',
+      via: 'auteur'
+    },
 
  /* beforeValidation: function(values, next){
    // console.log(values)

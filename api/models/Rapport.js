@@ -13,6 +13,9 @@ module.exports = {
   		model: 'user'
   	},
 
+  	examenID: {model: 'examen'},
+  	
+
     zwemmerID: {
       	model: 'user'
     },

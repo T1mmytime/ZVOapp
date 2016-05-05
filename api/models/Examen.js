@@ -33,12 +33,12 @@ module.exports = {
     	collection: 'user',
     	via: 'examenID',
     	dominant: true
-    }
+    },
 
- /*   rapporten: {
+    rapportID: {
       collection: 'rapport',
       via: 'examenID'
-    }*/
+    }
   } 
 };
 

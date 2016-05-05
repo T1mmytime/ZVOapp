@@ -27,13 +27,11 @@ module.exports = {
       via: 'oefeningID'
     },
 
-    gebruiktIn: {
-      collection: 'gebruikteoefeningen',
-      via: 'gebruikteoefeningID'
-    },
- 
-  
-  } 
+    schemaID: {
+      collection: 'schemaoefeningen',
+      via: 'oefeningID'
+    }
+  }
 };
 
 

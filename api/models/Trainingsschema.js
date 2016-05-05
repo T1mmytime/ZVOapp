@@ -14,12 +14,21 @@ module.exports = {
   		required: true
   	},
 
-  	gebruikteoefening: {
-      	collection: 'Gebruikteoefeningen',
-        via: 'schemaID'
+    bechrijving:{
+      type: 'string'
     },
 
-    agendaMoment: {
+    auteur:{
+      model: 'user',
+      required: true
+    },
+
+  	oefeningID:{
+      collection: 'schemaoefeningen',
+      via: 'schemaID'
+    },
+
+    agendaMoment:{
       collection: 'agenda',
       via: 'schemaID'
     }
