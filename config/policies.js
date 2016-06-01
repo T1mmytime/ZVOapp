@@ -33,8 +33,8 @@ module.exports.policies = {
     create: 'flash',
     show: 'standardUser',
     edit: 'standardUser',
-    update: 'standardUser',
-    '*': 'admin'
+    update: 'standardUser'//,
+   // '*': 'admin'
   },
 
   AgendaController:{

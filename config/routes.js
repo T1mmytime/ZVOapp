@@ -44,7 +44,7 @@ module.exports.routes = {
   //Rapporten
   'POST /addRapport': 'RapportController.addRapport',
   'GET /getRapport': 'RapportController.getRapport',
-  'GET /getAlleRapporten': 'RapportController.getAlleRapporten',
+  'POST /addResultaten': 'RapportController.addExamenResultaten',
 
    //Agenda
 
@@ -52,7 +52,10 @@ module.exports.routes = {
    'GET /agenda/getIcal': 'AgendaController.getGroepIcal',
    'POST /agenda/deelnemers': 'AgendaController.getGroepDeelnemers',
 
+   //Aanwezigheid
 
+   'GET /aanwezigheid/find': 'AanwezigheidController.getAanwezigheidslijst',
+   'POST /aanwezigheid/updatestatus': 'AanwezigheidController.updateAanwezigheidslijst',
    //Trainingsschemas
    'POST  /schema/add': 'TrainingsschemaController.addTrainingSchema',
    'GET  /schema/get': 'TrainingsschemaController.getTrainingSchema',
@@ -60,6 +63,10 @@ module.exports.routes = {
    //Authenticatie
   'POST /login' : 'AuthController.login',
   'POST /signup' : 'AuthController.signup',
+
+
+  //User
+  'GET /user/getRapporten' : 'UserController.getRapporten',
   //'GET /activate/:token' : 'AuthController.activate',
 
   /***************************************************************************

@@ -16,20 +16,27 @@ module.exports = {
     //De controller moet dan met dit schema een rapport opstellen
     //De trainer moet dan dit rapport invullen
 
+  /*  naam: {
+        type: 'string'
+    },
+
     beschrijving: {
     	type: 'string'
     },
 
-    // Bexchrijving van de oefening
+    
     oefeningID: {
     	collection: 'oefening',
     	via: 'examenID',
     	dominant: true
     },
 
+    trainerID:{
+        model: 'user'
+    },
 
 
-    gebruikerID: {
+    zwemmerID: {
     	collection: 'user',
     	via: 'examenID',
     	dominant: true
@@ -38,7 +45,7 @@ module.exports = {
     rapportID: {
       collection: 'rapport',
       via: 'examenID'
-    }
+    } */
   } 
 };
 

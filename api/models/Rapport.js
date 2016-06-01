@@ -13,16 +13,30 @@ module.exports = {
   		model: 'user'
   	},
 
-  	examenID: {model: 'examen'},
-  	
+  	naam:{
+  		type: 'string'
+  	},
+  	//examenID:{model: 'examen'},
+
 
     zwemmerID: {
       	model: 'user'
     },
 
+    //Om te zien wanneer het examen is afgenomen 
     planningID: {
     	model: 'agenda'
+    },
+
+    resultaten:{
+    	collection: 'rapportresultaten',
+    	via: 'rapportID'
+    },
+
+    commentaar:{
+    	type: 'string'
     }
+
   }
 };
 

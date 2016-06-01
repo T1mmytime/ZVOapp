@@ -22,15 +22,21 @@ module.exports = {
       required: true
     },
 
-    examenID: {
+  /*  examenID: {
       collection: 'examen',
       via: 'oefeningID'
-    },
+    },*/
 
     schemaID: {
       collection: 'schemaoefeningen',
       via: 'oefeningID'
+    },
+
+    rapportID:{
+      collection: 'rapportresultaten',
+      via: 'oefeningID'
     }
+
   }
 };
 

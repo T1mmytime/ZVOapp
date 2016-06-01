@@ -51,7 +51,7 @@ module.exports = {
 					else Agenda.create(agendaOBJ, function userCreated(err, planning){
 			
 						if(err) return res.negotiate(err);
-						planning.save(function(err, planning){
+						planning.save(function(err, plng){
 							if(err) return next(err);
 							//return	res.json(planning);
 							Groep.findOne({id: req.param('groepID')})
@@ -65,7 +65,7 @@ module.exports = {
 								})
 
 								var aanwezigheidslijstOBJ = {
-									planning: '1',
+									planning: planning.id,
 									aanwezigen: gebruikers
 								}
 								Aanwezigheid.create(aanwezigheidslijstOBJ, function Created(err, lijst){
@@ -75,11 +75,10 @@ module.exports = {
 											if(err) return next(err);
 										});
 										
-								});
 
 								async.each(gebruikers, function( gebruiker, klaar){
 									var statusOBJ= {
-											 	aanwezigheidID: '1',
+											 	aanwezigheidID: lijst.id,
 											    gebruikerID: gebruiker
 											}
 									Aanwezigheidsstatus.create(statusOBJ, function Created(err, status){
@@ -94,6 +93,7 @@ module.exports = {
 									res.send('succes');
 								});
 							});
+						});
 					});
 				});
 			});
@@ -115,47 +115,7 @@ module.exports = {
 
 	//test methode wordt nadien functionaliteit in "addplanning"
 	getGroepDeelnemers: function(req, res){
-		/*Groep.findOne({id: req.param('groepID')})
-			.populateAll()
-			.exec(function geefGroep(err, groep){
-				if(err) return res.negotiate(err);
-				if(!groep) return res.json(401, {err:'groep niet gevonden'});
-				var gebruikers = [];
-				groep.deelnemers.forEach(function(gebruiker){
-					gebruikers.push(_.get(gebruiker, ['id']));
-				})
-
-				var aanwezigheidslijstOBJ = {
-					planning: '1',
-					aanwezigen: gebruikers
-				}
-				Aanwezigheid.create(aanwezigheidslijstOBJ, function Created(err, lijst){
-			
-						if(err) return res.negotiate(err);
-						lijst.save(function(err, lst){
-							if(err) return next(err);
-						});
-						
-				});
-
-				async.each(gebruikers, function( gebruiker, klaar){
-					var statusOBJ= {
-							 	aanwezigheidID: '1',
-							    gebruikerID: gebruiker
-							}
-					Aanwezigheidsstatus.create(statusOBJ, function Created(err, status){
-									status.save(function(err,sts){
-									if(err) return next(err);
-									//res.json(statusOBJ);										
-									});
-						klaar(err,status);
-					});
-
-				},function(err){
-					res.send('succes');
-				});
-			});*/
-			Agenda.createAanwezigheidslijst();
+		
 	}	
 };
 

@@ -11,8 +11,9 @@ module.exports = {
 		
 		Rapport.create({
 			name: req.param('naam'),
-			examenID: req.param('examenID'),
-			zwemmerID: req.param('zwemmerID')
+			zwemmerID: req.param('zwemmerID'),
+			planningID: req.param('planningID'),
+			trainerID: req.param('trainerID')
 			},
 			function voegRapportToe(err, rapport){
               
@@ -25,13 +26,45 @@ module.exports = {
         });        
 	},
 
+	addExamenResultaten: function(req, res){
+		
+		Rapport.update({zwemmerID: req.param('zwemmerID'),planningID: req.param('planningID')},{commentaar: req.param('commentaar')})
+				.exec(function(err,rapport){
+					if(err) return res.negotiate(err);
+
+					//json body met oef id en bephaalde resultaat op deze oefening.
+
+					var resultatenOBJ = req.body;
+
+					async.each(resultatenOBJ, function( resultaten, klaar){
+					
+					var rapportresOBJ = {
+						rapportID: rapport.id,
+						oefeningID: resultaten.oefid,
+						resultaat:  resultaten.resultaat
+					}
+
+					Rapportresultaten.create(rapportresOBJ, function Created(err, rapres){
+							rapres.save(function(err,rap){
+							if(err) return next(err);
+							});
+							klaar(err,rapres);
+						});
+
+					},function(err){
+						res.send('succes');
+					}); 
+		});
+	},
+		
+
     getRapport: function(req, res){
 
 		Rapport.findOne({
-			examenID: req.param('examenID'),
-			zwemmerID: req.param('zwemmerID')
-			},
-			function vindRapport(err, rapport){
+				id: req.param('rapportID')
+			})
+			.populate('resultaten')
+			.exec(function vindRapport(err, rapport){
 				if(err){
               	return res.negotiate(err);
               }

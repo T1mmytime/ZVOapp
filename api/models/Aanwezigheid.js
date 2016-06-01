@@ -29,12 +29,12 @@ module.exports = {
             required: true
         },
 
-        statusen: {
+        statussen: {
             collection: 'aanwezigheidsstatus',
             via: 'aanwezigheidID'
         }
 
-        
+
     }
 };
 

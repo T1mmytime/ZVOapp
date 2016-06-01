@@ -46,11 +46,11 @@ module.exports = {
       collection: 'rapport',
       via: 'trainerID'
     },
-
+/*
     examenID: {
       collection: 'examen',
-      via: 'gebruikerID'
-    },
+      via: 'zwemmerID'
+    },*/
 
     aanwezigheidslijst: {
       collection: 'aanwezigheid',
@@ -104,6 +104,10 @@ module.exports = {
     next();
   },
 */
+ /*   examinator:{
+      collection: 'examen',
+      via: 'trainerID'
+    },*/
   isPasswordValid: function (password, cb) {
       bcrypt.compare(password, this.password, cb);
   },

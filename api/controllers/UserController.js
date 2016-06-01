@@ -7,7 +7,7 @@
 
 module.exports = {
 	
-	'new': function(req, res){
+	/*'new': function(req, res){
 		res.locals.flash = _.clone(req.session.flash);
 		res.view();
 		req.session.flash = {};
@@ -53,7 +53,7 @@ module.exports = {
 			});
 		});
 	},
-
+	
 	//view/show.ejs
 	show: function (req, res, next){
 		User.findOne(req.param('id'), function foundUser(err, user){
@@ -79,6 +79,7 @@ module.exports = {
 			});
 		});
 	},
+	*/
 
 	edit: function(req,res,next){
 		User.findOne(req.param('id'), function foundUser(err, user){
@@ -128,6 +129,81 @@ module.exports = {
 			});
 			res.redirect('/user');
 		});
+	},
+
+	getRapporten: function(req,res){
+		User.findOne({
+				id: req.param('id')
+			})
+			.populate('rapportVan')
+			.exec(function vindRapport(err, user){
+				if(err){
+              	return res.negotiate(err);
+              }
+              	if(!user){
+              		return res.notFound('User niet gevonden');
+              }
+
+            //  return res.json(user.rapportVan);
+              var rapporten = [];
+				user.rapportVan.forEach(function(rapport){
+						rapporten.push(_.get(rapport, ['id']));
+				})
+			  var resultaten = [];
+             
+              
+              var alleRapporten = [];
+              var compactrapport = [];
+
+              async.eachSeries(rapporten, function( rapport, klaar){
+			  
+			  Rapport.findOne(rapport)
+			    	.populateAll()
+			    	.exec(function rappor(err, rpprt){
+							if(err) return next(err);
+							
+							resultaten = rpprt.resultaten;	
+														
+						//	});
+							var resultatenArray = [];
+
+								async.eachSeries(resultaten, function(resultaat, klaarb){
+									var resultaatOBJ;							
+
+									Oefening.findOne(resultaat.oefeningID)
+									.exec(function oef(err,oefening){
+										if(err) return next(err);
+										if(!oefening) return res.notFound('Oefening niet gevonden');
+										resultaatOBJ ={
+											resultaat: resultaat.resultaat,
+											oefening: oefening.naam,
+											beschrijving: oefening.beschrijving
+										}
+										console.log('callbackB');
+										resultatenArray.push(resultaatOBJ);		
+										klaarb();
+									});																							
+								},function(err){
+									console.log('finnishB')	
+									rapportOBJ ={
+										commentaar: rpprt.commentaar,
+										naam: rpprt.naam,
+										resultaten: resultatenArray
+									}	
+									compactrapport.push(rapportOBJ);
+									klaar();	
+								})	
+						console.log('callbackA');
+					//	rapporten = {rapporten: compactrapport};
+								
+					});
+				},function(err){
+					console.log('finnishA');
+					ALLErapporten = {rapporten: compactrapport};	
+					res.json(ALLErapporten);				
+				});
+			});
 	}
+
 };
 
