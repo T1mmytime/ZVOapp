@@ -33,10 +33,6 @@ module.exports = {
       defaultsTo: false
     },
 
-  	gencrypteerdPaswoord:{
-  		type: 'string'
-  	},
-
     rapportVan: {
       collection: 'rapport',
       via: 'zwemmerID'
