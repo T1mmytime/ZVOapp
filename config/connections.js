@@ -48,6 +48,15 @@ module.exports.connections = {
     password: 'root',
     database: 'zvo_users'
   },
+
+  heroku:{
+    adapter: 'sails-mysql',
+    host: 'eu-cdbr-west-01.cleardb.com',
+    port: 3306,
+    user: 'b1b8b4af64552e',
+    password: '476337eb',
+    database: 'heroku_1a03f4e2934785a', 
+  },
 /*
   jawsMysql: {
     adapter: 'sails-mysql',
