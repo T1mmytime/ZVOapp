@@ -66,8 +66,8 @@ config/local.js
 # 
 ################################################
 
-#node_modules
-#bower_components
+node_modules/
+bower_components
 
 
 
@@ -116,3 +116,4 @@ npm-debug.log
 nbproject
 .idea
 .node_history
+ionicapp/
